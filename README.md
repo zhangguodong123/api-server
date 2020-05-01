@@ -4,7 +4,7 @@
 
 ## Feature
 
-- [ ] dev env set
+- [x] [dev env set](doc/dev_env_set.md)
 - [ ] base dir structure
 - [ ] config option pattern
 - [ ] import cli & config pkg
