@@ -5,7 +5,7 @@
 ## Feature
 
 - [x] [dev env set](doc/dev_env_set.md)
-- [ ] base dir structure
+- [x] [base dir structure](doc/base_dir_structure.md)
 - [ ] config option pattern
 - [ ] import cli & config pkg
 - [ ] simple http server
