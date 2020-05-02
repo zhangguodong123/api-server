@@ -6,8 +6,12 @@
 
 - [x] [dev env set](doc/dev_env_set.md)
 - [x] [base dir structure](doc/base_dir_structure.md)
+- [x] import cli & config pkg
+- [x] Makefile with partial build arguments
+    - cross compile
+    - mod: `go build -mod=vendor`
+    - tags
 - [ ] config option pattern
-- [ ] import cli & config pkg
 - [ ] simple http server
     - [ ] data structure: byte, int, float, string, rune, slice, map, chan, etc.
     - [ ] field tag
@@ -22,10 +26,6 @@
     - [ ] test & benchmark
 - [ ] go cmd: build & run & others
 - [ ] vendor
-- [ ] Makefile
-    - cross compile
-    - mod
-    - tags
 - [ ] add version info
     - [ ] code version
     - [ ] API version: tag/branch/version file
