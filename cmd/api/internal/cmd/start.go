@@ -8,8 +8,6 @@ package cmd
 import (
 	"log"
 	"net/http"
-	"os"
-	"os/signal"
 	"syscall"
 
 	"github.com/spf13/cobra"
@@ -17,6 +15,7 @@ import (
 
 	"github.com/xwi88/api-server/cmd"
 	"github.com/xwi88/api-server/cmd/api/handler"
+	"github.com/xwi88/api-server/internal/platform/utils"
 )
 
 var (
@@ -39,40 +38,11 @@ var ApiCmd = &cobra.Command{
 		http.HandleFunc("/hello", handler.HelloWorldHandler)
 		http.HandleFunc("/ping", handler.PingHandler)
 
-		ch := make(chan os.Signal, 1)
-		// SIGKILL and SIGSTOP Neither of these signals can be captured by the application,
-		// nor can they be blocked or ignored by the operating system.
-		// kill -9 pid => SIGKILL
-		// os.Interrupt, os.Kill, syscall.SIGUSR1, syscall.SIGUSR2
-		signal.Notify(ch,
-			// https://www.gnu.org/software/libc/manual/html_node/Termination-Signals.html
-			syscall.SIGTERM, // "the normal way to politely ask a program to terminate"
-			syscall.SIGINT,  // Ctrl+C
-			syscall.SIGQUIT, // Ctrl-\
-			syscall.SIGKILL, // "always fatal", "SIGKILL and SIGSTOP may not be caught by a program"
-			syscall.SIGHUP,  // "terminal is disconnected"
-			syscall.SIGUSR1, syscall.SIGUSR2,
-		)
-		go func() {
-			for sig := range ch {
-				switch sig {
-				case syscall.SIGTERM, syscall.SIGHUP, syscall.SIGINT, syscall.SIGQUIT, syscall.SIGKILL:
-					// resources close
-					log.Printf("kill pid:%v", pid)
-					// kill pid real
-					if err := syscall.Kill(syscall.Getpid(), syscall.SIGKILL); err != nil {
-						log.Fatalf("kill pid:%v, err:%v", pid, err)
-					}
-					os.Exit(int(sig.(syscall.Signal)))
-				case syscall.SIGUSR1:
-					log.Printf("signal:usr1 %v", sig)
-				case syscall.SIGUSR2:
-					log.Printf("signal:usr2 %v", sig)
-				default:
-					log.Printf("signal:other %v", sig)
-				}
-			}
-		}()
+		catchSignal := utils.NewCatchSignal()
+		catchSignal.RegisterSigFunc(utils.SigGroupNameBase, func() {
+			log.Printf("resources close start...")
+			log.Printf("resources close end...")
+		}).Start()
 
 		err := http.ListenAndServe("0.0.0.0:8080", nil)
 		if err != nil {
