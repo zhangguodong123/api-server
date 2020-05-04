@@ -5,7 +5,12 @@
     |__ bin:            make 生成的二进制文件存放目录
 |__ cmd:                cli dir
     |__ api:            api server
-    |__ version.go:     项目版本信息 cmd
+        |__ handler:    http handler
+        |__ internal:   api cmd use modules
+        |__ main.go:    main pkg
+    |__ version:        version bin
+        |__ main.go     main pkg
+    |__ version.go:     项目版本信息 cmd, 公用
 |__ dist:               生成部署所需配置及脚本存储位置-容器服务
 |__ docs:               相关文档存储
 |__ internal:           项目内部公用包，可提取为公用包

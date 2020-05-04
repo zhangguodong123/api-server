@@ -10,7 +10,7 @@
 - [x] Makefile with partial build arguments
     - cross compile
     - mod: `go build -mod=vendor`
-    - tags
+    - tags: a comma-separated list of build tags.
 - [ ] config option pattern
 - [ ] simple http server
     - [ ] data structure: byte, int, float, string, rune, slice, map, chan, etc.
@@ -20,14 +20,14 @@
     - [ ] for & for range & goto label
     - [ ] goroutine
     - [ ] closure
-    - [ ] internal dir
+    - [x] internal dir
     - [ ] related specification
-    - [ ] http server
+    - [x] http server
     - [ ] test & benchmark
-- [ ] go cmd: build & run & others
-- [ ] vendor
+- [x] go cmd: build & run & others
+- [x] vendor: project pkg dir, should not use, if u want, `go build -mod=vendor`.
 - [ ] add version info
-    - [ ] code version
+    - [x] code version
     - [ ] API version: tag/branch/version file
 - [ ] proto
     - [ ] idl define
@@ -46,7 +46,7 @@
     - [ ] metrics
     - [ ] metrics api: new port
 - [ ] JWT(JSON Web Token)
-- [ ] http ratelimit & interceptor
+- [ ] http rateLimit & interceptor
 - [ ] Web ASM
 - [ ] design pattern
-    - [ ] sigleton
+    - [ ] singleton

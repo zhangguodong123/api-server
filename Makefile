@@ -32,12 +32,14 @@ ldflagsRelase="-s -w -X ${versionDir}.gitBranch=${gitBranch} -X ${versionDir}.gi
 #buildTags=""
 buildTags="jsoniter"
 
-.PHONY: version version-darwin version-linux
+.PHONY: version version-darwin version-linux api
 
-defualt: version
+defualt: version api
 
-all: version
+all: version api
 
+clean:
+	rm -r build/bin
 # cmd section: version
 version:
 	go build -v -tags ${buildTags} -ldflags ${ldflagsDebug} -o ./build/bin/version ./cmd/version
@@ -52,3 +54,22 @@ version-linux:
 	export CGO_ENABLED=0 && export GOOS=linux && export GOARCH=amd64 && \
 	go build -v -tags ${buildTags} -ldflags ${ldflagsRelase} -o ./build/bin/version-linux ./cmd/version
 	@echo "Done version built for linux"
+
+# cmd section: api
+api:
+	go build -v -tags ${buildTags} -ldflags ${ldflagsDebug} -o ./build/bin/api ./cmd/api
+	@echo "Done api built remain gdb info"
+api-darwin:
+	export CGO_ENABLED=0 && export GOOS=darwin && export GOARCH=amd64 && \
+	go build -v -tags ${buildTags} -ldflags ${ldflagsDebug} -o ./build/bin/api-darwin ./cmd/api
+	@echo "Done api built for darwin, remain gdb info "
+api-linux:
+	export CGO_ENABLED=0 && export GOOS=linux && export GOARCH=amd64 && \
+	go build -v -tags ${buildTags} -ldflags ${ldflagsRelase} -o ./build/bin/api-linux ./cmd/api
+	@echo "Done api built for linux"
+api-version:
+	./build/bin/api version
+api-run:
+	./build/bin/api start
+api-run2:
+	go run ./cmd/api/main.go
