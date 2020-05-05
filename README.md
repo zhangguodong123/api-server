@@ -15,7 +15,7 @@
 - [ ] simple http server
     - [ ] data structure: byte, int, float, string, rune, slice, map, chan, etc.
     - [ ] field tag
-    - [ ] byte alignment
+    - [x] [byte alignment](doc/byte_alignment.md)
     - [ ] struct & interface & reflect(option)
     - [ ] for & for range & goto label
     - [ ] goroutine
@@ -35,6 +35,7 @@
 - [ ] simple rpc server & client
 - [ ] Dockerfile
 - [ ] multi env support
+- [x] [go web framework](doc/go_framework.md)
 
 ## TODO
 
