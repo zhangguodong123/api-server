@@ -14,16 +14,18 @@ import (
 	"github.com/xwi88/kit4go/datetime"
 
 	"github.com/xwi88/api-server/cmd"
+	"github.com/xwi88/api-server/cmd/api/configs"
 	"github.com/xwi88/api-server/cmd/api/handler"
 	"github.com/xwi88/api-server/internal/platform/utils"
 )
 
 var (
+	configFile  *string
 	versionFlag *bool
 )
 
-// ApiCmd
-var ApiCmd = &cobra.Command{
+// APICmd
+var APICmd = &cobra.Command{
 	Use:   "start",
 	Short: "start the api",
 	Long: `usage example:
@@ -32,6 +34,14 @@ var ApiCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		pid := syscall.Getpid()
 		log.Printf("[api] start, pid:%v, at:%v\n", pid, datetime.GetNowWithZone(nil))
+
+		// init config for global
+		log.Println("[api] load config file:", *configFile)
+		configs.Init(configFile)
+		// get config
+		apiConfig := configs.GetConfig()
+		log.Printf("[api] Config %v", apiConfig)
+		log.Println("[api] Config", configs.GetConfigJSONString(false))
 
 		// http handler router
 		http.HandleFunc("/", handler.HelloWorldHandler)
@@ -58,5 +68,6 @@ func init() {
 	cmd.VersionFlag = versionFlag
 
 	// add api cmd
-	rootCmd.AddCommand(ApiCmd)
+	rootCmd.AddCommand(APICmd)
+	configFile = APICmd.Flags().StringP("config", "c", "./profiles/dev/api.yml", "api config file (required)")
 }

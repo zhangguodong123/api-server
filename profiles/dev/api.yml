@@ -1,0 +1,20 @@
+# base configs for api server
+app_id: '20200505001'
+app_env: dev
+server:
+  disable_http: true
+  enable_https: false
+  http:
+    - {"name": "http_server", host: 0.0.0.0, port: 3701, cors: ["*"],
+       enable_rate_limit: true, graceful: true, burst: 0, max_header_bytes: 1048576,
+       read_timeout: 2s, write_timeout: 5s,
+       limiter: 0, }
+#    - {name: http_server2, host: 0.0.0.0, port: 3702, cors: ["*"],
+#       enable_rate_limit: true, graceful: true, burst: 0, max_header_bytes: 1048576,
+#       read_timeout: 2s, write_timeout: 5s,
+#       limiter: 0, }
+#  https:
+#    - {"name": "https_server", host: 0.0.0.0, port: 8403, cors: ["*"],
+#       enable_rate_limit: true, graceful: true, burst: 0, max_header_bytes: 1048576,
+#       read_timeout: 2s, write_timeout: 5s,
+#       limiter: 0, }

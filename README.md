@@ -6,22 +6,23 @@
 
 - [x] [dev env set](doc/dev_env_set.md)
 - [x] [base dir structure](doc/base_dir_structure.md)
-- [x] import cli & config pkg
+- [x] import cli & config pkg: **cobra** and *viper*, use config pkg wrapper [config4go](https://github.com/xwi88/config4go.git).
 - [x] Makefile with partial build arguments
     - cross compile
     - mod: `go build -mod=vendor`
     - tags: a comma-separated list of build tags.
+- [x] [type alias](doc/type_alias.md)
 - [ ] config option pattern
 - [ ] simple http server
     - [ ] data structure: byte, int, float, string, rune, slice, map, chan, etc.
-    - [ ] field tag
+    - [x] field tag: `json, xml, orm, etc`. **Use with reflect.**
     - [x] [byte alignment](doc/byte_alignment.md)
     - [ ] struct & interface & reflect(option)
     - [ ] for & for range & goto label
     - [ ] goroutine
     - [ ] closure
     - [x] internal dir
-    - [ ] related specification
+    - [x] related specification: Plz watch each file and their comments and can ref [uber_go_guide_cn](https://github.com/xxjwxc/uber_go_guide_cn).
     - [x] http server
     - [ ] test & benchmark
 - [x] go cmd: build & run & others
@@ -34,7 +35,7 @@
     - [ ] proto generate
 - [ ] simple rpc server & client
 - [ ] Dockerfile
-- [ ] multi env support
+- [x] multi env support: profiles dir, default dev
 - [x] [go web framework](doc/go_framework.md)
 
 ## TODO
