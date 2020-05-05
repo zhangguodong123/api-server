@@ -7,7 +7,6 @@ package cmd
 
 import (
 	"log"
-	"net/http"
 	"syscall"
 
 	"github.com/spf13/cobra"
@@ -15,7 +14,7 @@ import (
 
 	"github.com/xwi88/api-server/cmd"
 	"github.com/xwi88/api-server/cmd/api/configs"
-	"github.com/xwi88/api-server/cmd/api/handler"
+	"github.com/xwi88/api-server/cmd/api/server"
 	"github.com/xwi88/api-server/internal/platform/utils"
 )
 
@@ -43,10 +42,8 @@ var APICmd = &cobra.Command{
 		log.Printf("[api] Config %v", apiConfig)
 		log.Println("[api] Config", configs.GetConfigJSONString(false))
 
-		// http handler router
-		http.HandleFunc("/", handler.HelloWorldHandler)
-		http.HandleFunc("/hello", handler.HelloWorldHandler)
-		http.HandleFunc("/ping", handler.PingHandler)
+		apiServer := server.NewServer(apiConfig)
+		apiServer.Start()
 
 		catchSignal := utils.NewCatchSignal()
 		catchSignal.RegisterSigFunc(utils.SigGroupNameBase, func() {
@@ -54,10 +51,8 @@ var APICmd = &cobra.Command{
 			log.Printf("resources close end...")
 		}).Start()
 
-		err := http.ListenAndServe("0.0.0.0:8080", nil)
-		if err != nil {
-			log.Fatalf("[api] serve err, err:%v", err.Error())
-		}
+		// block here
+		select {}
 	},
 }
 

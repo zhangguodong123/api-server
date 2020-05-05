@@ -2,8 +2,8 @@
 app_id: '20200505001'
 app_env: dev
 server:
-  disable_http: true
-  enable_https: false
+#  disable_http: true
+#  enable_https: false
   http:
     - {"name": "http_server", host: 0.0.0.0, port: 3701, cors: ["*"],
        enable_rate_limit: true, graceful: true, burst: 0, max_header_bytes: 1048576,
